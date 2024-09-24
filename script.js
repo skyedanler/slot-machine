@@ -96,6 +96,21 @@ const spin = (multiplierValue) => {
 };
 
 const handleMultiplier = (event, multiplierValue) => {
+  // Get all elements with the class 'multiplier'
+  const buttons = document.getElementsByClassName("multiplier");
+
+  // Loop over all multiplier buttons and remove the 'selected' class
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].classList.remove("current-bet");
+  }
+
+  // Add the 'selected' class to the clicked element
+  const clickedButton = event.target;
+  clickedButton.classList.add("current-bet");
+
+  // Do something with the multiplier value
+  console.log("Multiplier value:", multiplierValue);
+
   // Call spin function and pass the multiplier value
   spin(multiplierValue);
 };
