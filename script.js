@@ -14,9 +14,39 @@ const updateCredits = (amount) => {
   if (credits > 0) {
     document.querySelector(".credits").textContent = `Credits: ${credits}`;
   } else {
+    // Set credits to 0 if they go below 0
+    credits = 0;
     document.querySelector(".credits").textContent =
       "You're out of credits. Go home!";
+
+    // Set game over class on body
+    document.body.classList.add("game-over");
+
+    // Show the "Replay" button
+    const replayButton = document.createElement("button");
+    replayButton.textContent = "Replay";
+    replayButton.classList.add("replay");
+    replayButton.onclick = resetGame;
+    document.querySelector(".choices").appendChild(replayButton);
   }
+};
+
+// Function to update message to gambler
+const updateMessage = (message) => {
+  noticeElement = document.getElementById("notice");
+  noticeElement.innerHTML = message;
+};
+
+// Reset the game by setting credits back to 1000
+const resetGame = () => {
+  credits = 1000;
+  document.querySelector(".credits").textContent = `Credits: ${credits}`;
+
+  // Reset message
+  updateMessage("");
+
+  document.body.classList.remove("game-over");
+  replayButton.remove();
 };
 
 const checkForWinningCombinations = (reelValues) => {
@@ -38,7 +68,6 @@ const checkForWinningCombinations = (reelValues) => {
 };
 
 const spin = (multiplierValue) => {
-  const notice = document.getElementById("notice");
   const reels = [
     document.getElementById("reel1"),
     document.getElementById("reel2"),
@@ -57,6 +86,7 @@ const spin = (multiplierValue) => {
     7: "🍑", // Peach
   };
 
+  updateMessage("");
   let spinIntervals = [];
   let finalReelValues = [];
 
@@ -86,9 +116,9 @@ const spin = (multiplierValue) => {
         const payout = checkForWinningCombinations(finalReelValues);
         if (payout > 0) {
           updateCredits(payout); // Add the payout to the credits
-          notice.innerHTML = `You won ${payout} credits!`;
+          updateMessage(`You won ${payout} credits!`);
         } else {
-          notice.innerHTML = "No win this time!";
+          updateMessage("No win this time!");
         }
       }
     }, (index + 1) * 300); // Stagger reel stops

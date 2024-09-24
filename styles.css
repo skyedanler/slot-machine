@@ -82,6 +82,14 @@ body {
   gap: 20px;
 }
 
+.game-over .reels-wrapper {
+  display: none;
+}
+
+.game-over .buttons {
+  display: none;
+}
+
 .reel {
   font-family: "Handjet", "Apple Color Emoji", "Segoe UI Emoji",
     "Noto Color Emoji", sans-serif;
