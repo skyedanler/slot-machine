@@ -22,6 +22,9 @@
 - The multipler buttons will need to decrease the credit amount.
 - Wins will need to add to the credit amount.
 - The spin button will have to take into account the last multiplier used and take this from the credits/apply to the possible winnings.
+- Change the color of buttons when clicked.
+  - For multiplier buttons, the color change will remain indefinitely until another multiplier button is pressed.
+  - For spin button, it will only happen on a click on and will be temporary.
 
 ***
 
