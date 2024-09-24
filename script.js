@@ -1,4 +1,5 @@
-let credits = 1000; // Initial credits
+let credits = 300; // Initial credits
+let isGameOver = false; // Track game over state
 
 const fruitMap = {
   1: "🍒", // Cherry
@@ -89,28 +90,18 @@ const printPaytable = () => {
 
 // Call this function to print paytable when the page loads
 document.addEventListener("DOMContentLoaded", () => {
-  printPaytable();
+  resetGame();
 });
+
+// Set up a new game
+const newGame = () => {};
 
 const updateCredits = (amount) => {
   credits += amount;
   if (credits > 0) {
     document.querySelector(".credits").textContent = `Credits: ${credits}`;
   } else {
-    // Set credits to 0 if they go below 0
-    credits = 0;
-    document.querySelector(".credits").textContent =
-      "You're out of credits. Go home!";
-
-    // Set game over class on body
-    document.body.classList.add("game-over");
-
-    // Show the "Replay" button
-    const replayButton = document.createElement("button");
-    replayButton.textContent = "Replay";
-    replayButton.classList.add("replay");
-    replayButton.onclick = resetGame;
-    document.querySelector(".choices").appendChild(replayButton);
+    gameOver();
   }
 };
 
@@ -120,16 +111,41 @@ const updateMessage = (message) => {
   noticeElement.innerHTML = message;
 };
 
-// Reset the game by setting credits back to 1000
+// Game over
+const gameOver = () => {
+  // Set credits to 0 if they go below 0
+  credits = 0;
+  isGameOver = true; // Set game over flag
+
+  document.querySelector(".credits").textContent =
+    "You're out of credits. Go home!";
+
+  // Set game over class on body
+  document.body.classList.add("game-over");
+};
+
+// Reset the game by setting credits back to 300
 const resetGame = () => {
-  credits = 1000;
+  isGameOver = false;
+  printPaytable();
+  document.body.classList.remove("game-over");
+  credits = 300;
   document.querySelector(".credits").textContent = `Credits: ${credits}`;
+  document.getElementsByClassName("reel").innerHTML = "";
 
   // Reset message
   updateMessage("");
 
+  // Enable buttons
+  enableButtons();
+
+  // Remove selected multiplier class
+  const selectedMultiplier = document.querySelectorAll(".current-bet");
+  selectedMultiplier.forEach((element) => {
+    element.classList.remove("current-bet");
+  });
+
   document.body.classList.remove("game-over");
-  replayButton.remove();
 };
 
 const checkForWinningCombinations = (reelValues, multiplierValue) => {
@@ -158,6 +174,8 @@ const checkForWinningCombinations = (reelValues, multiplierValue) => {
 };
 
 const spin = (multiplierValue = 20) => {
+  if (isGameOver) return; // Prevent spinning if game is over
+
   const reels = [
     document.getElementById("reel1"),
     document.getElementById("reel2"),
@@ -180,7 +198,8 @@ const spin = (multiplierValue = 20) => {
 
   // Start spinning each reel
   reels.forEach((reel, index) => {
-    // Spin each reel by updating the displayed fruit symbol
+    if (isGameOver) return; // Prevent further updates if game is over
+
     spinIntervals[index] = setInterval(() => {
       const randomNumber = getRandomNumber();
       reel.textContent = fruitMap[randomNumber]; // Display random fruit in the reel
@@ -188,13 +207,15 @@ const spin = (multiplierValue = 20) => {
 
     // Stop spinning after a delay (stagger each reel stop)
     setTimeout(() => {
+      if (isGameOver) return; // Prevent further updates if game is over
+
       clearInterval(spinIntervals[index]); // Stop spinning
       const finalNumber = getRandomNumber();
       reel.textContent = fruitMap[finalNumber]; // Set final fruit symbol
       finalReelValues[index] = finalNumber;
 
       // If it's the last reel, check for winning combinations
-      if (index === reels.length - 1) {
+      if (index === reels.length - 1 && !isGameOver) {
         const payout = checkForWinningCombinations(
           finalReelValues,
           multiplierValue
@@ -239,9 +260,6 @@ const handleMultiplier = (event, multiplierValue) => {
   // Add the 'selected' class to the clicked element
   const clickedButton = event.target;
   clickedButton.classList.add("current-bet");
-
-  // Do something with the multiplier value
-  console.log("Multiplier value:", multiplierValue);
 
   // Call spin function and pass the multiplier value
   spin(multiplierValue);
