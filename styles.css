@@ -16,12 +16,38 @@ body p {
 .welcome-text {
     color: red;
     font-weight: 700;
-    font-size: 4em
+    font-size: 5em
 }
 
+/*Pay Table*/
 .paytable {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    border-color: black
+}
+
+.pay-column {
+    width: 40%;
+}
+
+.winnings {
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    border: 3px solid white;
+    height: 70px;
+    padding: 5px;
+    margin: 10px;
+    flex: 2 0.5 auto;
+}
+
+.winnings img {
+    max-height: 80%;
+}
+
+.winnings p {
+    font-size: 3em;
 }
 
 /*Choices AS A WHOLE*/
@@ -67,6 +93,5 @@ body p {
     border: 4px solid tan;
     padding: 3px;
     color: black;
-    position: absolute;
     right: 0
 }
