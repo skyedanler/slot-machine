@@ -87,6 +87,7 @@ const spin = (multiplierValue) => {
   };
 
   updateMessage("");
+  disableButtons();
   let spinIntervals = [];
   let finalReelValues = [];
 
@@ -120,8 +121,25 @@ const spin = (multiplierValue) => {
         } else {
           updateMessage("No win this time!");
         }
+        enableButtons();
       }
     }, (index + 1) * 300); // Stagger reel stops
+  });
+};
+
+// Disable multiplier buttons
+const disableButtons = () => {
+  const buttons = document.querySelectorAll(".multiplier");
+  buttons.forEach((button) => {
+    button.disabled = true;
+  });
+};
+
+// Re-enable multiplier buttons
+const enableButtons = () => {
+  const buttons = document.querySelectorAll(".multiplier");
+  buttons.forEach((button) => {
+    button.disabled = false;
   });
 };
 
