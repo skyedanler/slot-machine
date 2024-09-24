@@ -31,3 +31,7 @@
 ### Other Ideas
 
 - Should there be hidden prizes that the user can cash out for like at an arcade? They could be hidden behind images of wrapped presents and an event would reveal the "prize" underneath.
+
+### Issues/Bugs
+
+- The pay table boxes need to be adjusted so that things stay inside when page is shrunk/expanded. Possibly a flex issue or need to make the images responsive.
