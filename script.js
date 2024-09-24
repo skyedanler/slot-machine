@@ -37,31 +37,31 @@ const paytable = [
   },
   {
     combination: { 1: 2 },
-    payout: 20,
+    payout: 5,
   },
   {
     combination: { 2: 2 },
-    payout: 20,
+    payout: 5,
   },
   {
     combination: { 3: 2 },
-    payout: 20,
+    payout: 5,
   },
   {
     combination: { 4: 2 },
-    payout: 20,
+    payout: 5,
   },
   {
     combination: { 5: 2 },
-    payout: 20,
+    payout: 5,
   },
   {
     combination: { 6: 2 },
-    payout: 20,
+    payout: 5,
   },
   {
     combination: { 7: 2 },
-    payout: 20,
+    payout: 5,
   },
 ];
 
