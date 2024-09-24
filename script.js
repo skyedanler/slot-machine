@@ -37,19 +37,19 @@ const paytable = [
   },
   {
     combination: { 1: 2 },
-    payout: 5,
+    payout: 1,
   },
   {
     combination: { 2: 2 },
-    payout: 5,
+    payout: 2,
   },
   {
     combination: { 3: 2 },
-    payout: 5,
+    payout: 3,
   },
   {
     combination: { 4: 2 },
-    payout: 5,
+    payout: 4,
   },
   {
     combination: { 5: 2 },
@@ -57,11 +57,11 @@ const paytable = [
   },
   {
     combination: { 6: 2 },
-    payout: 5,
+    payout: 6,
   },
   {
     combination: { 7: 2 },
-    payout: 5,
+    payout: 7,
   },
 ];
 
