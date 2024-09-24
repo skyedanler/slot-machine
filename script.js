@@ -9,12 +9,17 @@ const paytable = {
   7: { 3: 100, 4: 200, 5: 500 }, // 🍑
 };
 
-function updateCredits(amount) {
+const updateCredits = (amount) => {
   credits += amount;
-  document.querySelector(".credits").textContent = `Credits: ${credits}`;
-}
+  if (credits > 0) {
+    document.querySelector(".credits").textContent = `Credits: ${credits}`;
+  } else {
+    document.querySelector(".credits").textContent =
+      "You're out of credits. Go home!";
+  }
+};
 
-function checkForWinningCombinations(reelValues) {
+const checkForWinningCombinations = (reelValues) => {
   const countMap = reelValues.reduce((acc, value) => {
     acc[value] = (acc[value] || 0) + 1;
     return acc;
@@ -30,11 +35,10 @@ function checkForWinningCombinations(reelValues) {
   });
 
   return payout;
-}
+};
 
-function spin(multiplierValue) {
+const spin = (multiplierValue) => {
   const notice = document.getElementById("notice");
-  notice.innerHTML = "";
   const reels = [
     document.getElementById("reel1"),
     document.getElementById("reel2"),
@@ -60,9 +64,9 @@ function spin(multiplierValue) {
   updateCredits(-multiplierValue);
 
   // Function to generate a random number between 1 and 7
-  function getRandomNumber() {
+  const getRandomNumber = () => {
     return Math.floor(Math.random() * 7) + 1;
-  }
+  };
 
   // Start spinning each reel
   reels.forEach((reel, index) => {
@@ -87,11 +91,11 @@ function spin(multiplierValue) {
           notice.innerHTML = "No win this time!";
         }
       }
-    }, (index + 1) * 500); // Stagger reel stops
+    }, (index + 1) * 300); // Stagger reel stops
   });
-}
+};
 
-function handleMultiplier(event, multiplierValue) {
+const handleMultiplier = (event, multiplierValue) => {
   // Call spin function and pass the multiplier value
   spin(multiplierValue);
-}
+};
