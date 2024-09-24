@@ -128,6 +128,7 @@ const gameOver = () => {
 const resetGame = () => {
   isGameOver = false;
   printPaytable();
+  document.getElementById("instructions").classList.remove("hide");
   document.body.classList.remove("game-over");
   credits = 300;
   document.querySelector(".credits").textContent = `Credits: ${credits}`;
@@ -175,6 +176,7 @@ const checkForWinningCombinations = (reelValues, multiplierValue) => {
 
 const spin = (multiplierValue = 20) => {
   if (isGameOver) return; // Prevent spinning if game is over
+  document.getElementById("instructions").classList.add("hide");
 
   const reels = [
     document.getElementById("reel1"),

@@ -12,11 +12,12 @@
     <script src="./script.js"></script>
   </head>
   <body>
+    <button class="replay" id="replay" onclick="resetGame()">Reset Game</button>
     <div class="content-wrapper">
       <h1 class="welcome-text">
         Welcome to the Computer Programming Slot Machine!
       </h1>
-      <div class="instructions">
+      <div class="instructions" id="instructions">
         <p>
           Listen up, kid. This slot machine? It’s still under construction,
           capisce? But here’s the deal—we’re gonna let you help us test it out.
@@ -75,9 +76,6 @@
           </button>
         </div>
         <div class="notice" id="notice"></div>
-        <button class="replay" id="replay" onclick="resetGame()">
-          Play Again
-        </button>
       </div>
       <div class="slot-machine"></div>
       <div class="reels-wrapper">
