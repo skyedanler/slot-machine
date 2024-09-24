@@ -46,6 +46,11 @@ body {
   width: 100%;
 }
 
+.choices-label {
+  font-size: 1.4rem;
+  margin: 1rem auto 0.4rem;
+}
+
 /*Buttons*/
 .buttons {
   display: flex;
@@ -95,9 +100,9 @@ body {
     "Noto Color Emoji", sans-serif;
   width: 20%;
   height: 200px;
-  background-color: blue;
-  border: 2px red solid;
-  border-radius: 5px;
+  background-color: rgb(30, 96, 137);
+  border: 2px rgb(4, 60, 97) solid;
+  border-radius: 1rem;
   font-size: 4rem;
   display: flex;
   justify-content: center;
@@ -112,5 +117,5 @@ body {
   padding: 3px;
   color: black;
   max-width: fit-content;
-  margin: 0 0 0 auto;
+  margin: 0 auto;
 }

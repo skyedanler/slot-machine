@@ -86,7 +86,7 @@ const spin = (multiplierValue) => {
     7: "🍑", // Peach
   };
 
-  updateMessage("");
+  updateMessage("Spinning...");
   disableButtons();
   let spinIntervals = [];
   let finalReelValues = [];
@@ -119,7 +119,7 @@ const spin = (multiplierValue) => {
           updateCredits(payout); // Add the payout to the credits
           updateMessage(`You won ${payout} credits!`);
         } else {
-          updateMessage("No win this time!");
+          updateMessage("Sorry, no win this time!");
         }
         enableButtons();
       }
