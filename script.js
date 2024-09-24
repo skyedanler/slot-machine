@@ -1,13 +1,96 @@
 let credits = 1000; // Initial credits
-const paytable = {
-  1: { 3: 10, 4: 20, 5: 50 }, // 🍒
-  2: { 3: 5, 4: 15, 5: 30 }, // 🍋
-  3: { 3: 20, 4: 40, 5: 100 }, // 🍉
-  4: { 3: 25, 4: 50, 5: 120 }, // 🍇
-  5: { 3: 30, 4: 60, 5: 150 }, // 🍓
-  6: { 3: 50, 4: 100, 5: 200 }, // 🍍
-  7: { 3: 100, 4: 200, 5: 500 }, // 🍑
+
+const fruitMap = {
+  1: "🍒", // Cherry
+  2: "🍋", // Lemon
+  3: "🍉", // Watermelon
+  4: "🍇", // Grapes
+  5: "🍓", // Strawberry
+  6: "🍍", // Pineapple
+  7: "🍑", // Peach
 };
+
+const paytable = [
+  {
+    combination: { 1: 3, 7: 2 }, // 3 cherries and 2 peaches
+    payout: 200,
+  },
+  {
+    combination: { 3: 3, 6: 2 }, // 3 watermelons and 2 pineapples
+    payout: 150,
+  },
+  {
+    combination: { 5: 5 }, // 5 strawberries
+    payout: 500,
+  },
+  {
+    combination: { 4: 4 }, // 4 grapes
+    payout: 120,
+  },
+  {
+    combination: { 1: 3 }, // 3 cherries
+    payout: 50,
+  },
+  {
+    combination: { 2: 3 }, // 3 lemons
+    payout: 30,
+  },
+  {
+    combination: { 1: 2 },
+    payout: 20,
+  },
+  {
+    combination: { 2: 2 },
+    payout: 20,
+  },
+  {
+    combination: { 3: 2 },
+    payout: 20,
+  },
+  {
+    combination: { 4: 2 },
+    payout: 20,
+  },
+  {
+    combination: { 5: 2 },
+    payout: 20,
+  },
+  {
+    combination: { 6: 2 },
+    payout: 20,
+  },
+  {
+    combination: { 7: 2 },
+    payout: 20,
+  },
+];
+
+// Function to print paytable on the page
+const printPaytable = () => {
+  const paytableDiv = document.getElementById("paytable");
+  let html = "";
+
+  paytable.forEach((entry) => {
+    // Create the combination string with repeated fruits
+    const combinationText = Object.entries(entry.combination)
+      .map(([fruitNumber, count]) => fruitMap[fruitNumber].repeat(count))
+      .join(" ");
+
+    html += `
+        <div class="paytable-entry">
+          <p class="payout">${entry.payout}</p>
+          <div class="fruit-combination">${combinationText}</div>
+        </div>
+      `;
+  });
+
+  paytableDiv.innerHTML = html;
+};
+
+// Call this function to print paytable when the page loads
+document.addEventListener("DOMContentLoaded", () => {
+  printPaytable();
+});
 
 const updateCredits = (amount) => {
   credits += amount;
@@ -49,7 +132,7 @@ const resetGame = () => {
   replayButton.remove();
 };
 
-const checkForWinningCombinations = (reelValues) => {
+const checkForWinningCombinations = (reelValues, multiplierValue) => {
   const countMap = reelValues.reduce((acc, value) => {
     acc[value] = (acc[value] || 0) + 1;
     return acc;
@@ -57,17 +140,24 @@ const checkForWinningCombinations = (reelValues) => {
 
   let payout = 0;
 
-  Object.keys(countMap).forEach((key) => {
-    const count = countMap[key];
-    if (count >= 3) {
-      payout += paytable[key][count]; // Add payout for this fruit based on the count
+  // Loop through the paytable and check if the combination matches
+  paytable.forEach((entry) => {
+    let match = true;
+    Object.entries(entry.combination).forEach(([fruitNumber, count]) => {
+      if (countMap[fruitNumber] !== count) {
+        match = false;
+      }
+    });
+
+    if (match) {
+      payout += entry.payout * (multiplierValue / 20); // Scale payout by multiplier
     }
   });
 
   return payout;
 };
 
-const spin = (multiplierValue) => {
+const spin = (multiplierValue = 20) => {
   const reels = [
     document.getElementById("reel1"),
     document.getElementById("reel2"),
@@ -76,54 +166,48 @@ const spin = (multiplierValue) => {
     document.getElementById("reel5"),
   ];
 
-  const fruitMap = {
-    1: "🍒", // Cherry
-    2: "🍋", // Lemon
-    3: "🍉", // Watermelon
-    4: "🍇", // Grapes
-    5: "🍓", // Strawberry
-    6: "🍍", // Pineapple
-    7: "🍑", // Peach
-  };
-
   updateMessage("Spinning...");
-  disableButtons();
+  disableButtons(); // Disable multiplier buttons while spinning
+
   let spinIntervals = [];
   let finalReelValues = [];
 
-  // Deduct the bet amount based on the multiplier
-  updateCredits(-multiplierValue);
+  updateCredits(-multiplierValue); // Deduct the bet amount based on the multiplier
 
-  // Function to generate a random number between 1 and 7
   const getRandomNumber = () => {
     return Math.floor(Math.random() * 7) + 1;
   };
 
   // Start spinning each reel
   reels.forEach((reel, index) => {
+    // Spin each reel by updating the displayed fruit symbol
     spinIntervals[index] = setInterval(() => {
       const randomNumber = getRandomNumber();
       reel.textContent = fruitMap[randomNumber]; // Display random fruit in the reel
-    }, 100);
+    }, 100); // Every 100ms, change the fruit to create the spinning effect
 
+    // Stop spinning after a delay (stagger each reel stop)
     setTimeout(() => {
       clearInterval(spinIntervals[index]); // Stop spinning
       const finalNumber = getRandomNumber();
       reel.textContent = fruitMap[finalNumber]; // Set final fruit symbol
       finalReelValues[index] = finalNumber;
 
+      // If it's the last reel, check for winning combinations
       if (index === reels.length - 1) {
-        // Once all reels stop, check for winning combinations
-        const payout = checkForWinningCombinations(finalReelValues);
+        const payout = checkForWinningCombinations(
+          finalReelValues,
+          multiplierValue
+        );
         if (payout > 0) {
           updateCredits(payout); // Add the payout to the credits
           updateMessage(`You won ${payout} credits!`);
         } else {
-          updateMessage("Sorry, no win this time!");
+          updateMessage("No win this time!");
         }
-        enableButtons();
+        enableButtons(); // Re-enable buttons after spin completes
       }
-    }, (index + 1) * 300); // Stagger reel stops
+    }, (index + 1) * 300); // Stagger reel stops, stopping one by one
   });
 };
 
