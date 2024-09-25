@@ -1,0 +1,13 @@
+.reels {
+    align-items: center;
+    justify-content: center;
+    display: flex
+}
+
+.reel {
+    box-sizing: border-box;
+    border: 3px solid white;
+    height: 600px;
+    width: 13%;
+    margin: 5px
+}

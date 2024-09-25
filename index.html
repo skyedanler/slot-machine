@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="./buttons/buttons.css"/>
+    <link rel="stylesheet" href="./reels/reels.css"/>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <h1 class="welcome-text">Welcome to the Computer Programming Slot Machine!</h1>
+        <p>The slot machine is a work in progress and we need YOUR help to make sure it's in order so we've gifted you $10(1000 credits) to use on the computer programming-themed slot machine below!</p>
+        <p>The rules are simple: Select a multiplier button for how many credits you'd like to insert into the machine. Be careful, it will spin the reels as soon as you press one so pick wisely. It doesn't increase your chances to win unfortunately but it does increase your payout if you do. You can switch between multipliers or you can click the "Spin" button. Just note that the "Spin" button spins based on the last multiplier chosen. The pay table is below to show you which combinations give you wins.</p>
+        <p><strong>Good luck!</strong></p>
+        <div class="paytable">
+            <div class="pay-column" id="pay-column1">
+                <div class="winnings">
+                    <img src="./images/JS_symbol.png">
+                    <img src="./images/JS_symbol.png">
+                    <img src="./images/JS_symbol.png">
+                    <img src="./images/JS_symbol.png">
+                    <img src="./images/JS_symbol.png">
+                    <p>2000</p>
+                </div>
+                <div class="winnings">
+                    <img src="./images/JS_symbol.png">
+                    <img src="./images/JS_symbol.png">
+                    <img src="./images/JS_symbol.png">
+                    <img src="./images/JS_symbol.png">
+                    <p>1500</p>
+                </div>
+                <div class="winnings">
+                    <img src="./images/JS_symbol.png">
+                    <img src="./images/JS_symbol.png">
+                    <img src="./images/JS_symbol.png">
+                    <p>1000</p>
+                </div>
+                <div class="winnings">
+                    <img src="./images/JS_symbol.png">
+                    <img src="./images/JS_symbol.png">
+                    <img src="./images/python_symbol.png">
+                    <img src="./images/python_symbol.png">
+                    <p>500</p>
+                </div>
+                <div class="winnings">
+                    <img src="./images/JS_symbol.png">
+                    <p>or</p>
+                    <img src="./images/python_symbol.png">
+                    <p>and 3</p>
+                    <img src="./images/bug_symbol.png">
+                    <p>400</p>
+                </div>
+                <div class="winnings">
+                    <p>Any 4</p>
+                    <img src="./images/parentheses.png">
+                    <img src="./images/semicolon.png">
+                    <img src="./images/curly_brackets_symbol.png">
+                    <p>300</p>
+                </div>
+            </div>
+            <div class="pay-column" id="pay-column2">
+                <div class="winnings">
+                    <img src="./images/python_symbol.png">
+                    <img src="./images/python_symbol.png">
+                    <img src="./images/python_symbol.png">
+                    <img src="./images/python_symbol.png">
+                    <img src="./images/python_symbol.png">
+                    <p>1500</p>
+                </div>
+                <div class="winnings">
+                    <img src="./images/python_symbol.png">
+                    <img src="./images/python_symbol.png">
+                    <img src="./images/python_symbol.png">
+                    <img src="./images/python_symbol.png">
+                    <p>1200</p>
+                </div>
+                <div class="winnings">
+                    <img src="./images/python_symbol.png">
+                    <img src="./images/python_symbol.png">
+                    <img src="./images/python_symbol.png">
+                    <p>800</p>
+                </div>
+                <div class="winnings">
+                    <img src="./images/bug_symbol.png">
+                    <img src="./images/bug_symbol.png">
+                    <img src="./images/bug_symbol.png">
+                    <img src="./images/bug_symbol.png">
+                    <img src="./images/bug_symbol.png">
+                    <p>600</p>
+                </div>
+                <div class="winnings">
+                    <img src="./images/bug_symbol.png">
+                    <img src="./images/bug_symbol.png">
+                    <img src="./images/bug_symbol.png">
+                    <img src="./images/bug_symbol.png">
+                    <p>400</p>
+                </div>
+                <div class="winnings">
+                    <img src="./images/coffee_cup.png">
+                    <img src="./images/coffee_cup.png">
+                    <img src="./images/coffee_cup.png">
+                    <img src="./images/coffee_cup.png">
+                    <img src="./images/coffee_cup.png">
+                    <p>Free spin!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="reels">
+            <div class="reel" id="reel1">
+
+            </div>
+            <div class="reel" id="reel2">
+
+            </div>
+            <div class="reel" id="reel3">
+
+            </div>
+            <div class="reel" id="reel4">
+
+            </div>
+            <div class="reel" id="reel5">
+
+            </div>
+        </div>
+        <div class="choices">
+            <div class="buttons">
+                <p>Multipliers: </p>
+                <div class="multiplier" id="single">20</div>
+                <div class="multiplier" id="double">40</div>
+                <div class="multiplier" id="triple">60</div>
+                <div class="multiplier" id="quadruple">80</div>
+                <div class="multiplier" id="quintuple">100</div>
+                <div class="spin" id="spin">SPIN</div>
+            </div>
+            <div class="credits">*placeholder for credits*</div>
+        </div>
+        <div class="slot-machine"></div>
+        <script type="text/javascript" src="reel_events.js"></script>
+    </body>
+</html>
