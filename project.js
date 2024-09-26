@@ -40,10 +40,25 @@ function useCredits(multiplier) { //subtracts credits depending on multiplier pr
 
     if (multiplier <= credits) {
         credits -= multiplier;
-        return updateCredits(credits);
+        updateCredits(credits);
+        enoughCredits(credits);
     } 
     else {
         alert('Not enough credits to play this game.');
         return;
     }
 };
+
+function enoughCredits(credit_count) { //check if there are enough credits for each button to be clickable
+    multipliers.forEach(button => {
+        if (credit_count < parseInt(button.innerHTML, 10)) {
+            button.disabled = true;
+            if (credit_count < 20) {
+                spinButton.disabled = true;
+            }
+        }
+        else {
+            return;
+        }
+    })
+}

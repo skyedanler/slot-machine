@@ -1,3 +1,7 @@
+* {
+    font-family: "Handjet";
+}
+
 .choices {
     display: flex;
     justify-content: center;
@@ -21,19 +25,20 @@
 .multiplier {
     margin: 5px;
     box-sizing: border-box;
-    background-color: rgba(238, 238, 65, 0.658);
+    background-color: rgba(240, 240, 11, 0.884);
     padding: 10px;
     transition: background-color 0.3s ease;
     cursor: pointer;
+    font-size: 1.5rem;
 }
 
 .multiplier:hover {
-    background-color: rgba(158, 158, 54, 0.658);
+    background-color: rgba(209, 209, 43, 0.658);
     cursor: pointer;
 }
 
 .multipler:active {
-    background-color: rgba(238, 238, 65, 0.658);
+    background-color: rgba(240, 240, 11, 0.884);
 }
 
 .active {
@@ -42,7 +47,7 @@
 }
 
 .multiplier:disabled {
-    background-color: rgba(158, 158, 54, 0.658);
+    background-color: rgba(209, 209, 43, 0.658);
 }
 
 .spin {
@@ -52,6 +57,7 @@
     padding: 10px 30px;
     color: white;
     transition: background-color 0.3s ease;
+    font-size: 1.5rem;
 }
 
 .spin:hover {
