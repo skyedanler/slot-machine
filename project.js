@@ -18,6 +18,14 @@ multipliers.forEach(button => {
         useCredits(multiplier); 
         multipliers.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
+
+        /*button.disabled = true;
+        spinReel(reel1, Math.floor(Math.random() * 20));
+        spinReel(reel2, Math.floor(Math.random() * 20));
+        spinReel(reel3, Math.floor(Math.random() * 20));
+        spinReel(reel4, Math.floor(Math.random() * 20));
+        spinReel(reel5, Math.floor(Math.random() * 20));
+        button.disabled = false;*/
         // reels spinning function can go here
     });
 });
@@ -26,11 +34,13 @@ spinButton.addEventListener('click', function() {
     useCredits(parseInt(document.querySelector('.multiplier.active').innerHTML, 10));//you want to have it useCredits based on last multiplier clicked
     //spins reel with random amount of spins for each reel to ensure combinations aren't always the same
     //TODO: buttons.disabled = true
-    spinReel(reel1, Math.random() * 20);
-    spinReel(reel2, Math.random() * 20);
-    spinReel(reel3, Math.random() * 20);
-    spinReel(reel4, Math.random() * 20);
-    spinReel(reel5, Math.random() * 20);
+    /*spinButton.disabled = true;
+    spinReel(reel1, Math.floor(Math.random() * 20));
+    spinReel(reel2, Math.floor(Math.random() * 20));
+    spinReel(reel3, Math.floor(Math.random() * 20));
+    spinReel(reel4, Math.floor(Math.random() * 20));
+    spinReel(reel5, Math.floor(Math.random() * 20));
+    spinButton.disabled = false;*/
     //TODO: buttons.disabled = false;
     //TODO: updateCredits after spin happens
 });
@@ -115,7 +125,6 @@ reel5 = createReel(symbolAmount);
 
 //function to only display three symbols per reel at a time
 function displayReel(reel, symbols) { // TODO: I want five reel divs separated into 3 sections because images must align with those
-    reel.innerHTML = '';
    
     let selectedSymbols = symbols.slice(0, 3);
     selectedSymbols.forEach(symbol => {
@@ -129,16 +138,19 @@ function displayReel(reel, symbols) { // TODO: I want five reel divs separated i
 
 
 //function to spin the reels
+/*This function is displaying the reel as it spins. The problem is, does this reel stay after it's done? because reel in itself is local to the function.*/
 function spinReel(reel, spins) {
 
     let pulledValue = 0;
 
     while (spins > 0) {
         pulledValue = reel.shift();
-        reel.append[pulledValue];
-        spin -= 1;
+        reel.push(pulledValue);
+        spins -= 1;
+        displayReel(document.getElementById(`${reel}`), reel);
     }
-    return reel;
+    /*The problem with this is that when I spin the reel, I want the images to each change as the spin is happening.
+    I don't want it to just change the reel after the spin happens so maybe I need to displayReel() each time in while loop */
 }
 
 
