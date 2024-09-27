@@ -11,7 +11,7 @@
   - ~~Spin button~~
   - ~~Credits box~~
 - ~~Create the point system (pay table) and possibly show a pay line as the next div.~~
-- Create a div with the three to five reels (slots).
+- ~~Create a div with the three to five reels (slots).~~
 
 ***
 
@@ -33,7 +33,7 @@
 ### Other Ideas
 
 - Should there be hidden prizes that the user can cash out for like at an arcade? They could be hidden behind images of wrapped presents and an event would reveal the "prize" underneath.
-- A note mentioning if the user is out of credits or not. Or perhaps the multipliers and spin button just all become disabled without a note.
+- ~~A note mentioning if the user is out of credits or not. Or perhaps the multipliers and spin button just all become disabled without a note.~~
 
 ### Issues/Bugs
 
