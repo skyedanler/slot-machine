@@ -2,6 +2,10 @@
     font-family: "Handjet";
 }
 
+#cant-spin {
+    position: relative;
+}
+
 .choices {
     display: flex;
     justify-content: center;

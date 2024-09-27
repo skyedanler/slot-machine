@@ -9,5 +9,11 @@
     border: 3px solid white;
     height: 600px;
     width: 13%;
-    margin: 5px
+    margin: 5px;
+}
+
+.reel-image {
+    width: 80%;
+    height: auto;
+    justify-content: center;
 }
