@@ -1,52 +1,7 @@
-//buttons
-let multiplierSingle = document.getElementById('single');
-let multiplierDouble = document.getElementById('double');
-let multiplierTriple = document.getElementById('triple');
-let multiplierQuadruple = document.getElementById('quadruple');
-let multiplierQuintuple = document.getElementById('quintuple');
-
 let spinButton = document.getElementById('spin');
 
-//listener event for buttons
 let lastMultiplierClicked = null;
-
 const multipliers = document.querySelectorAll('.multiplier');
-
-multipliers.forEach(button => {
-    button.addEventListener('click', function() {
-        const multiplier = parseInt(button.innerHTML, 10);
-        useCredits(multiplier); 
-        multipliers.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-
-        /*button.disabled = true;
-        spinReel(reel1, Math.floor(Math.random() * 20));
-        spinReel(reel2, Math.floor(Math.random() * 20));
-        spinReel(reel3, Math.floor(Math.random() * 20));
-        spinReel(reel4, Math.floor(Math.random() * 20));
-        spinReel(reel5, Math.floor(Math.random() * 20));
-        button.disabled = false;*/
-        // reels spinning function can go here
-    });
-});
-
-spinButton.addEventListener('click', function() {
-    useCredits(parseInt(document.querySelector('.multiplier.active').innerHTML, 10));//you want to have it useCredits based on last multiplier clicked
-    //spins reel with random amount of spins for each reel to ensure combinations aren't always the same
-    //TODO: buttons.disabled = true
-    /*spinButton.disabled = true;
-    spinReel(reel1, Math.floor(Math.random() * 20));
-    spinReel(reel2, Math.floor(Math.random() * 20));
-    spinReel(reel3, Math.floor(Math.random() * 20));
-    spinReel(reel4, Math.floor(Math.random() * 20));
-    spinReel(reel5, Math.floor(Math.random() * 20));
-    spinButton.disabled = false;*/
-    //TODO: buttons.disabled = false;
-    //TODO: updateCredits after spin happens
-});
-
-
-
 
 //credits
 function updateCredits(newCredits) {
@@ -136,7 +91,6 @@ function displayReel(reel, symbols) { // TODO: I want five reel divs separated i
 }
 
 
-
 //function to spin the reels
 /*This function is displaying the reel as it spins. The problem is, does this reel stay after it's done? because reel in itself is local to the function.*/
 function spinReel(reel, spins) {
@@ -169,3 +123,24 @@ function wonCredits(symbolCombo) {
 }
 
 //TODO: perhaps create some functions or quick for loops to do functions for each reel. Gets repetitive
+
+//the onclick function for buttons
+function buttonAction(buttonID) {
+    const button = document.getElementById(buttonID);
+
+    if (button.classList.contains('multiplier')) {
+        const multiplier = parseInt(button.innerHTML, 10);
+        useCredits(multiplier); 
+        multipliers.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+    }
+    else {
+        const activeMultiplierButton = document.querySelector('.multiplier.active');
+        if (activeMultiplierButton) {
+            const activeMultiplier = parseInt(activeMultiplierButton.innerHTML, 10);
+            useCredits(activeMultiplier); 
+        } else {
+            document.getElementById('cant-spin').innerHTML = 'Select a multiplier to spin the reels.';
+        }
+    }
+}
