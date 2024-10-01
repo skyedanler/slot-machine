@@ -3,6 +3,14 @@ let spinButton = document.getElementById('spin');
 let lastMultiplierClicked = null;
 const multipliers = document.querySelectorAll('.multiplier');
 
+let reelIndices = {
+    reel1: 0,
+    reel2: 0,
+    reel3: 0,
+    reel4: 0,
+    reel5: 0,
+}
+
 //credits
 function updateCredits(newCredits) {
     return document.getElementById('credits').innerText = `${newCredits}`;
@@ -72,64 +80,80 @@ function createReel(symbolAmount) {
 }
 
 // creating all reels with the same amount of symbols based on paytable combination probability
-reel1 = createReel(symbolAmount);
-reel2 = createReel(symbolAmount);
-reel3 = createReel(symbolAmount);
-reel4 = createReel(symbolAmount);
-reel5 = createReel(symbolAmount);
+const reel1 = createReel(symbolAmount);
+const reel2 = createReel(symbolAmount);
+const reel3 = createReel(symbolAmount);
+const reel4 = createReel(symbolAmount);
+const reel5 = createReel(symbolAmount);
 
 //function to only display three symbols per reel at a time
-function displayReel(reel, symbols) { // TODO: I want five reel divs separated into 3 sections because images must align with those
+function displayReel(reel, symbols) {
+    reel.innerHTML = ''; //clear any previous symbols to adjust the spin
    
     symbols.forEach(symbol => {
         let img = document.createElement('img');
         img.src = symbol;
-        img.classList.add('reel-image');//create class so I can use CSS
+        img.classList.add('reel-image');//creates class so I can use CSS
         reel.append(img);
     });   
 }
 
 //initial displayed reels (might get rid of this)
-displayReel(document.getElementById('reel1'), reel1.slice(0,3));
-displayReel(document.getElementById('reel2'), reel2.slice(0,3));
-displayReel(document.getElementById('reel3'), reel3.slice(0,3));
-displayReel(document.getElementById('reel4'), reel4.slice(0,3));
-displayReel(document.getElementById('reel5'), reel5.slice(0,3));
+//reels.forEach(reel => displayReel(document.getElementById(`${reel}`), reel.slice(0,3)));
+if (document.querySelectorAll('.multiplier.active').length === 0) {
+    displayReel(document.getElementById('reel1'), reel1.slice(0,3));
+    displayReel(document.getElementById('reel2'), reel2.slice(0,3));
+    displayReel(document.getElementById('reel3'), reel3.slice(0,3));
+    displayReel(document.getElementById('reel4'), reel4.slice(0,3));
+    displayReel(document.getElementById('reel5'), reel5.slice(0,3));
+};
 
 
-
-
+let symbolCombo = []; //the combination to be gone through when reels stop
 //function to spin the reels
 /*This function is displaying the reel as it spins. The problem is, does this reel stay after it's done? because reel in itself is local to the function.*/
-function spinReel(reel) {
-
+function spinReel(reel, reelName) {
+    let reelArray = [];
+    let startIndex = reelIndices[reelName];
+   
+    reelArray.push(reel[startIndex]);
+    reelArray.push(reel[(startIndex+1) >= reel.length ? 0 : startIndex + 1]);
+    reelArray.push(reel[(startIndex+2) >= reel.length ? (startIndex + 2) - reel.length : startIndex + 2]);
+    console.log("reel array: " + reelArray);
+    reelIndices[reelName] += 1;
+    if (reelIndices[reelName] >= reel.length) {
+        reelIndices[reelName] = 0;
+    }
+    console.log("starting index: " + startIndex);
+    displayReel(document.getElementById(reelName), reelArray);
+    return startIndex; //this should work because it will keep updating but will be finalized after last spin of reel
 }
 
-function startReels() {
-    reel1Spin = setInterval(() => spinReel(reel1), 100);
-    reel2Spin = setInterval(() => spinReel(reel2), 200);
-    reel3Spin = setInterval(() => spinReel(reel3), 300);
-    reel4Spin = setInterval(() => spinReel(reel4), 400);
-    reel5Spin = setInterval(() => spinReel(reel5), 500);
+function startReels() {//starting spinning the reels at their respective interval times
+    reel1Spin = setInterval(() => spinReel(reel1, 'reel1'), 100);
+    reel2Spin = setInterval(() => spinReel(reel2, 'reel2'), 200);
+    reel3Spin = setInterval(() => spinReel(reel3, 'reel3'), 300);
+    reel4Spin = setInterval(() => spinReel(reel4, 'reel4'), 400);
+    reel5Spin = setInterval(() => spinReel(reel5, 'reel5'), 500);
 }
 
-function stopReels() {
-    setTimeout(() => {
+function stopReels() {//stop all spinning after 3 seconds
+    setTimeout(() => { 
         clearInterval(reel1Spin);
         clearInterval(reel2Spin);
         clearInterval(reel3Spin);
         clearInterval(reel4Spin);
         clearInterval(reel5Spin);
-    }, 5000);
+    }, 3000);
 }
 
-function startSpin() {
+function startSpin() {//this function will start the spinning action for all reels as well as stop them.
     startReels();
     stopReels();
 }
 
 
-let symbolCombo = [];//create array of the five symbol combination it lands on for use in wonCredits
+//create array of the five symbol combination it lands on for use in wonCredits
 //function to updateCredits based on combination win/not win
 function wonCredits(symbolCombo) {
     
@@ -156,4 +180,5 @@ function buttonAction(buttonID) {
             document.getElementById('cant-spin').innerHTML = 'Select a multiplier to spin the reels.';
         }
     }
+    startSpin();
 }
