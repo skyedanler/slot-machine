@@ -109,7 +109,13 @@ if (document.querySelectorAll('.multiplier.active').length === 0) {
 };
 
 
-let symbolCombo = []; //the combination to be gone through when reels stop
+let symbolCombo = {
+    reel1: null,
+    reel2: null,
+    reel3: null,
+    reel4: null,
+    reel5: null,
+} //the combination to be gone through when reels stop
 //function to spin the reels
 /*This function is displaying the reel as it spins. The problem is, does this reel stay after it's done? because reel in itself is local to the function.*/
 function spinReel(reel, reelName) {
@@ -126,7 +132,8 @@ function spinReel(reel, reelName) {
     }
     console.log("starting index: " + startIndex);
     displayReel(document.getElementById(reelName), reelArray);
-    return startIndex; //this should work because it will keep updating but will be finalized after last spin of reel
+    symbolCombo[reelName] = reelArray[1];
+    //return startIndex; //this should work because it will keep updating but will be finalized after last spin of reel
 }
 
 function startReels() {//starting spinning the reels at their respective interval times
