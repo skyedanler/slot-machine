@@ -81,8 +81,7 @@ reel5 = createReel(symbolAmount);
 //function to only display three symbols per reel at a time
 function displayReel(reel, symbols) { // TODO: I want five reel divs separated into 3 sections because images must align with those
    
-    let selectedSymbols = symbols.slice(0, 3);
-    selectedSymbols.forEach(symbol => {
+    symbols.forEach(symbol => {
         let img = document.createElement('img');
         img.src = symbol;
         img.classList.add('reel-image');//create class so I can use CSS
@@ -90,30 +89,44 @@ function displayReel(reel, symbols) { // TODO: I want five reel divs separated i
     });   
 }
 
+//initial displayed reels (might get rid of this)
+displayReel(document.getElementById('reel1'), reel1.slice(0,3));
+displayReel(document.getElementById('reel2'), reel2.slice(0,3));
+displayReel(document.getElementById('reel3'), reel3.slice(0,3));
+displayReel(document.getElementById('reel4'), reel4.slice(0,3));
+displayReel(document.getElementById('reel5'), reel5.slice(0,3));
+
+
+
 
 //function to spin the reels
 /*This function is displaying the reel as it spins. The problem is, does this reel stay after it's done? because reel in itself is local to the function.*/
-function spinReel(reel, spins) {
+function spinReel(reel) {
 
-    let pulledValue = 0;
-
-    while (spins > 0) {
-        pulledValue = reel.shift();
-        reel.push(pulledValue);
-        spins -= 1;
-        displayReel(document.getElementById(`${reel}`), reel);
-    }
-    /*The problem with this is that when I spin the reel, I want the images to each change as the spin is happening.
-    I don't want it to just change the reel after the spin happens so maybe I need to displayReel() each time in while loop */
 }
 
+function startReels() {
+    reel1Spin = setInterval(() => spinReel(reel1), 100);
+    reel2Spin = setInterval(() => spinReel(reel2), 200);
+    reel3Spin = setInterval(() => spinReel(reel3), 300);
+    reel4Spin = setInterval(() => spinReel(reel4), 400);
+    reel5Spin = setInterval(() => spinReel(reel5), 500);
+}
 
-//displayed reels
-displayReel(document.getElementById('reel1'), reel1);
-displayReel(document.getElementById('reel2'), reel2);
-displayReel(document.getElementById('reel3'), reel3);
-displayReel(document.getElementById('reel4'), reel4);
-displayReel(document.getElementById('reel5'), reel5);
+function stopReels() {
+    setTimeout(() => {
+        clearInterval(reel1Spin);
+        clearInterval(reel2Spin);
+        clearInterval(reel3Spin);
+        clearInterval(reel4Spin);
+        clearInterval(reel5Spin);
+    }, 5000);
+}
+
+function startSpin() {
+    startReels();
+    stopReels();
+}
 
 
 let symbolCombo = [];//create array of the five symbol combination it lands on for use in wonCredits
