@@ -52,6 +52,7 @@
 
 .multiplier:disabled {
     background-color: rgba(209, 209, 43, 0.658);
+    cursor: default;
 }
 
 .spin {
@@ -73,7 +74,8 @@
 }
 
 .spin:disabled {
-    background-color: green
+    background-color: rgb(49, 97, 49);
+    cursor: default;
 }
 
 /*Credits*/

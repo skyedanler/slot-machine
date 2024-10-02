@@ -2,6 +2,7 @@ let spinButton = document.getElementById('spin');
 
 let lastMultiplierClicked = null;
 const multipliers = document.querySelectorAll('.multiplier');
+let buttons = document.getElementsByTagName('button');//for use in enabling/disabling
 
 let reelIndices = {
     reel1: 0,
@@ -25,7 +26,7 @@ function updateCredits(newCredits) { //TODO: make sure the updateCredits is upda
     let credits = parseInt(document.getElementById('credits').innerText, 10);
 
     if (newCredits > 0) {
-    document.getElementById('message').innerHTML = 'You won! Now spend more credits!';
+    document.getElementById('message').innerHTML = `You won ${newCredits}! Now spend more credits!`;
     credits += newCredits;
     }
     else {
@@ -162,11 +163,16 @@ function stopReels() {//stop all spinning after 3 seconds
         clearInterval(reel3Spin);
         clearInterval(reel4Spin);
         clearInterval(reel5Spin);
+
+        //enable buttons again when we are clearing the intervals and stopping the reels. stopReels has timeout and anything we do after it in startSpin may not render so we do it here.
+        Array.from(buttons).forEach(btn => btn.disabled = false);
+
         wonCredits();
     }, 3000);
 }
 
 function startSpin() {//this function will start the spinning action for all reels as well as stop them.
+    Array.from(buttons).forEach(btn => btn.disabled = true); //want to disable buttons when the spin starts
     startReels();
     stopReels();
 }
