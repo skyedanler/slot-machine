@@ -13,13 +13,14 @@
 - ~~Create the point system (pay table) and possibly show a pay line as the next div.~~
 - ~~Create a div with the three to five reels (slots).~~
 - Edit symbols to be all the same size.
+- Create an event where when the spin ends, the images that are within the center row are maybe either lit up or the other images become opaque.
+- Have the reels look like they're actually spinning with some type of transform in CSS.
 
 ***
 
 ## To Do For JavaScript
 
 - ~~Create an event where the images in the reels spin.~~
-- Create an event where when the spin ends, the images that are within the center row are maybe either lit up or the other images become opaque.
 - ~~The multipler buttons will need to decrease the credit amount.~~
 - ~~Wins will need to add to the credit amount.~~
 - ~~The spin button will have to take into account the last multiplier used and take this from the credits/apply to the possible winnings.~~
