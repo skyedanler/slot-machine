@@ -12,6 +12,7 @@
   - ~~Credits box~~
 - ~~Create the point system (pay table) and possibly show a pay line as the next div.~~
 - ~~Create a div with the three to five reels (slots).~~
+- Edit symbols to be all the same size.
 
 ***
 
