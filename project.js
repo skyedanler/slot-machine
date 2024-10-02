@@ -21,7 +21,7 @@ let symbolCombo = {
 
 
 //credits
-function updateCredits(newCredits) {
+function updateCredits(newCredits) { //TODO: make sure the updateCredits is updating proportional to the multiplier clicked
     let credits = parseInt(document.getElementById('credits').innerText, 10);
 
     if (newCredits > 0) {
@@ -34,7 +34,8 @@ function updateCredits(newCredits) {
     document.getElementById('credits').innerText = `${credits}`;
 };
 
-function useCredits(multiplier) { //subtracts credits depending on multiplier pressed
+//subtracts credits depending on multiplier pressed
+function useCredits(multiplier) {
     let credits = parseInt(document.getElementById('credits').innerText, 10);
     document.getElementById('message').innerHTML = '';
 
@@ -171,7 +172,6 @@ function startSpin() {//this function will start the spinning action for all ree
 }
 
 
-//create array of the five symbol combination it lands on for use in wonCredits
 //function to updateCredits based on combination win/not win
 function wonCredits() {
     const symbolValues = Object.values(symbolCombo);
@@ -191,7 +191,7 @@ function wonCredits() {
     else if (symbolValues.filter(sym => sym === python).length === 4) {
         updateCredits(1200);
     }
-    else if (symbolValues.filter(sym => sym === JS).length === 3) {
+    else if (symbolValues.filter(sym => sym === python).length === 3) {
         updateCredits(800);
     }
     else if ((symbolValues.filter(sym => sym === JS).length === 2) && (symbolValues.filter(sym => sym === python).length === 2)) {
