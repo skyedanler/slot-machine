@@ -35,6 +35,8 @@
 
 - Should there be hidden prizes that the user can cash out for like at an arcade? They could be hidden behind images of wrapped presents and an event would reveal the "prize" underneath.
 - ~~A note mentioning if the user is out of credits or not. Or perhaps the multipliers and spin button just all become disabled without a note.~~
+- Make this appear nice on mobile phones.
+- Change the paytable or amount of symbols in each reel. It seems to be nearly impossible to get any wins. I know that's the point of slot machines but it doesn't make it enjoyable to play my game.
 
 ### Issues/Bugs
 
