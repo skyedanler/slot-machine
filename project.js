@@ -26,7 +26,7 @@ function updateCredits(newCredits) { //TODO: make sure the updateCredits is upda
     let credits = parseInt(document.getElementById('credits').innerText, 10);
 
     if (newCredits > 0) {
-    document.getElementById('message').innerHTML = `You won ${newCredits}! Now spend more credits!`;
+    document.getElementById('message').innerHTML = `You won ${newCredits} credits! Now spend more credits!`;
     credits += newCredits;
     }
     else {
