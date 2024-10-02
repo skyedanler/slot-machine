@@ -41,3 +41,4 @@
 - ~~Credits are not decreasings when the buttons are pressed.~~
 - My main focus right now is making sure things work based on my code and learning. This is why I created project.js and only connect to that one in my HTML. Later, I will spend more time on organizing project.js into the smaller and more specific files (reels.js, credits.js, buttons.js) I originally made and connecting between those.
 - I need to make sure that when I win, the credits are proportional to the multiplier clicked.
+- The message about winning, losing, needing more credits, etc. shouldn't shift the buttons down everytime it appears.
