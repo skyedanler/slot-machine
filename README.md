@@ -17,7 +17,7 @@
 
 ## To Do For JavaScript
 
-- Create an event where the images in the reels spin.
+- ~~Create an event where the images in the reels spin.~~
 - Create an event where when the spin ends, the images that are within the center row are maybe either lit up or the other images become opaque.
 - ~~The multipler buttons will need to decrease the credit amount.~~
 - Wins will need to add to the credit amount.
