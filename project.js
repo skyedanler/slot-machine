@@ -22,13 +22,16 @@ let symbolCombo = {
 
 //credits
 function updateCredits(newCredits) {
+    let credits = parseInt(document.getElementById('credits').innerText, 10);
+
     if (newCredits > 0) {
     document.getElementById('message').innerHTML = 'You won! Now spend more credits!';
+    credits += newCredits;
     }
     else {
         document.getElementById('message').innerHTML = 'Yikes, better luck next time.';
     }
-    document.getElementById('credits').innerText = `${newCredits}`;
+    document.getElementById('credits').innerText = `${credits}`;
 };
 
 function useCredits(multiplier) { //subtracts credits depending on multiplier pressed
@@ -37,7 +40,7 @@ function useCredits(multiplier) { //subtracts credits depending on multiplier pr
 
     if (multiplier <= credits) {
         credits -= multiplier;
-        updateCredits(credits);
+        document.getElementById('credits').innerText = `${credits}`;
         enoughCredits(credits);
     } 
     else {
@@ -158,6 +161,7 @@ function stopReels() {//stop all spinning after 3 seconds
         clearInterval(reel3Spin);
         clearInterval(reel4Spin);
         clearInterval(reel5Spin);
+        wonCredits();
     }, 3000);
 }
 
@@ -169,8 +173,48 @@ function startSpin() {//this function will start the spinning action for all ree
 
 //create array of the five symbol combination it lands on for use in wonCredits
 //function to updateCredits based on combination win/not win
-function wonCredits(symbolCombo) {
-    
+function wonCredits() {
+    const symbolValues = Object.values(symbolCombo);
+
+    if (symbolValues.filter(sym => sym === JS).length === 5) {
+        updateCredits(2000);
+    }
+    else if (symbolValues.filter(sym => sym === JS).length === 4) {
+        updateCredits(1500);
+    }
+    else if (symbolValues.filter(sym => sym === JS).length === 3) {
+        updateCredits(1000);
+    }
+    else if (symbolValues.filter(sym => sym === python).length === 5) {
+        updateCredits(1500);
+    }
+    else if (symbolValues.filter(sym => sym === python).length === 4) {
+        updateCredits(1200);
+    }
+    else if (symbolValues.filter(sym => sym === JS).length === 3) {
+        updateCredits(800);
+    }
+    else if ((symbolValues.filter(sym => sym === JS).length === 2) && (symbolValues.filter(sym => sym === python).length === 2)) {
+        updateCredits(500);
+    }
+    else if (symbolValues.filter(sym => sym === buggy).length === 5) {
+        updateCredits(600);
+    }
+    else if (symbolValues.filter(sym => sym === buggy).length === 4) {
+        updateCredits(400);
+    }
+    else if (((symbolValues.filter(sym => sym === JS).length === 1) || (symbolValues.filter(sym => sym === python).length === 1)) && (symbolValues.filter(sym => sym === buggy).length === 3)) {
+        updateCredits(400);
+    }
+    else if (symbolValues.filter(sym => sym === coffee).length === 5) {
+        startSpin();
+    }
+    else if (symbolValues.filter(sym => sym === buggy).length === 4) {//TODO: change this to reflect the any 4 of semicolon, parenthese, curly braces
+        updateCredits(300);
+    }
+    else {
+        updateCredits(0);
+    }
 }
 
 //TODO: perhaps create some functions or quick for loops to do functions for each reel. Gets repetitive
