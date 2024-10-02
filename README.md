@@ -27,7 +27,8 @@
 - ~~Change the color of buttons when clicked.~~
   - ~~For multiplier buttons, the color change will remain indefinitely until another multiplier button is pressed.~~
   - ~~For spin button, it will only happen on a click on and will be temporary.~~
-- When user gets a free spin, it should automatically spin again or they can click spin. Either way, choosing a multiplier should be disabled until spin is finished.
+- When user gets a free spin, it should automatically spin again or they can click spin.
+- ~~Choosing a multiplier should be disabled until spin is finished.~~
 - ~~After a spin function is executed, I want to have a note saying if the user won or lost.~~ 
 
 ***
