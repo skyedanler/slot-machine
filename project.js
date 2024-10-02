@@ -17,17 +17,23 @@ let symbolCombo = {
     reel3: null,
     reel4: null,
     reel5: null,
-} //the combination to be gone through when reels stop
+} 
 
 
 //credits
 function updateCredits(newCredits) {
-    return document.getElementById('credits').innerText = `${newCredits}`;
+    if (newCredits > 0) {
+    document.getElementById('message').innerHTML = 'You won! Now spend more credits!';
+    }
+    else {
+        document.getElementById('message').innerHTML = 'Yikes, better luck next time.';
+    }
+    document.getElementById('credits').innerText = `${newCredits}`;
 };
 
 function useCredits(multiplier) { //subtracts credits depending on multiplier pressed
     let credits = parseInt(document.getElementById('credits').innerText, 10);
-    document.getElementById('cant-spin').innerHTML = '';
+    document.getElementById('message').innerHTML = '';
 
     if (multiplier <= credits) {
         credits -= multiplier;
@@ -35,7 +41,7 @@ function useCredits(multiplier) { //subtracts credits depending on multiplier pr
         enoughCredits(credits);
     } 
     else {
-        document.getElementById('cant-spin').innerHTML = 'Nice try. You need more credits for that. Choose a different multiplier.';
+        document.getElementById('message').innerHTML = 'Nice try. You need more credits for that. Choose a different multiplier.';
     }
 };
 
@@ -185,7 +191,7 @@ function buttonAction(buttonID) {
             const activeMultiplier = parseInt(activeMultiplierButton.innerHTML, 10);
             useCredits(activeMultiplier); 
         } else {
-            document.getElementById('cant-spin').innerHTML = 'Select a multiplier to spin the reels.';
+            document.getElementById('message').innerHTML = 'Select a multiplier to spin the reels.';
         }
     }
     startSpin();
