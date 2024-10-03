@@ -214,6 +214,7 @@ function wonCredits() {
         updateCredits(400);
     }
     else if (symbolValues.filter(sym => sym === coffee).length === 5) {
+        document.getElementById('message').innerHTML = 'You won a free spin! Spinning now...';
         startSpin();
     }
     else if (symbolValues.filter(sym => sym === buggy).length === 4) {//TODO: change this to reflect the any 4 of semicolon, parenthese, curly braces
