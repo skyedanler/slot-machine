@@ -26,8 +26,10 @@ function updateCredits(newCredits) { //TODO: make sure the updateCredits is upda
     let credits = parseInt(document.getElementById('credits').innerText, 10);
 
     if (newCredits > 0) {
-    document.getElementById('message').innerHTML = `You won ${newCredits} credits! Now spend more credits!`;
-    credits += newCredits;
+        let multiple = parseInt(document.querySelector('.multiplier.active').innerHTML, 10)/20;//calculuates how much credits should be multiplied by for wins based on multiplier that's selected
+        newCredits = newCredits * multiple;//calculates new winning amount of credits
+        document.getElementById('message').innerHTML = `You won ${newCredits} credits! Now spend more credits!`;
+        credits += newCredits;
     }
     else {
         document.getElementById('message').innerHTML = 'Yikes, better luck next time.';
@@ -127,7 +129,6 @@ if (document.querySelectorAll('.multiplier.active').length === 0) {
     displayReel(document.getElementById('reel4'), reel4.slice(0,3));
     displayReel(document.getElementById('reel5'), reel5.slice(0,3));
 };
-
 
 //function to spin the reels
 /*This function is displaying the reel as it spins. The problem is, does this reel stay after it's done? because reel in itself is local to the function.*/
