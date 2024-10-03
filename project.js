@@ -217,7 +217,7 @@ function wonCredits() {
         document.getElementById('message').innerHTML = 'You won a free spin! Spinning now...';
         startSpin();
     }
-    else if (symbolValues.filter(sym => sym === buggy).length === 4) {//TODO: change this to reflect the any 4 of semicolon, parenthese, curly braces
+    else if ((symbolValues.filter(sym => sym === parentheses).length + symbolValues.filter(sym => sym === semicolon).length + symbolValues.filter(sym => sym === curly_braces).length) >= 4) {//TODO: change this to reflect the any 4 of semicolon, parenthese, curly braces
         updateCredits(300);
     }
     else {
