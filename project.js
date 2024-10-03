@@ -182,35 +182,52 @@ function startSpin() {//this function will start the spinning action for all ree
 //function to updateCredits based on combination win/not win
 function wonCredits() {
     const symbolValues = Object.values(symbolCombo);
+    let winningSymbols = [];
 
     if (symbolValues.filter(sym => sym === JS).length === 5) {
+        winningSymbols = symbolValues.slice();
         updateCredits(2000);
     }
     else if (symbolValues.filter(sym => sym === JS).length === 4) {
+        winningSymbols = symbolValues.filter(sym => sym === JS);
         updateCredits(1500);
     }
     else if (symbolValues.filter(sym => sym === JS).length === 3) {
+        winningSymbols = symbolValues.filter(sym => sym === JS);
         updateCredits(1000);
     }
     else if (symbolValues.filter(sym => sym === python).length === 5) {
+        winningSymbols = symbolValues.slice();
         updateCredits(1500);
     }
     else if (symbolValues.filter(sym => sym === python).length === 4) {
+        winningSymbols = symbolValues.filter(sym => sym === python);
         updateCredits(1200);
     }
     else if (symbolValues.filter(sym => sym === python).length === 3) {
+        winningSymbols = symbolValues.filter(sym => sym === python);
         updateCredits(800);
     }
     else if ((symbolValues.filter(sym => sym === JS).length === 2) && (symbolValues.filter(sym => sym === python).length === 2)) {
+        winningSymbols = symbolValues.filter(sym => sym === JS).concat(symbolValues.filter(sym => sym === python));
         updateCredits(500);
     }
     else if (symbolValues.filter(sym => sym === buggy).length === 5) {
+        winningSymbols = symbolValues.slice();
         updateCredits(600);
     }
     else if (symbolValues.filter(sym => sym === buggy).length === 4) {
+        winningSymbols = symbolValues.filter(sym => sym === buggy);
         updateCredits(400);
     }
     else if (((symbolValues.filter(sym => sym === JS).length === 1) || (symbolValues.filter(sym => sym === python).length === 1)) && (symbolValues.filter(sym => sym === buggy).length === 3)) {
+        winningSymbols = symbolValues.filter(sym => sym === buggy);
+        if (symbolValues.includes(JS)) {
+            winningSymbols.push(JS);
+        }
+        else {
+            winningSymbols.push(python);
+        }
         updateCredits(400);
     }
     else if (symbolValues.filter(sym => sym === coffee).length === 5) {
@@ -218,11 +235,25 @@ function wonCredits() {
         startSpin();
     }
     else if ((symbolValues.filter(sym => sym === parentheses).length + symbolValues.filter(sym => sym === semicolon).length + symbolValues.filter(sym => sym === curly_braces).length) >= 4) {//TODO: change this to reflect the any 4 of semicolon, parenthese, curly braces
+        winningSymbols = symbolValues.filter(sym => sym === parentheses).concat(symbolValues.filter(sym => sym === semicolon)).concat(symbolValues.filter(sym => sym === curly_braces));
+        console.log(winningSymbols);
         updateCredits(300);
     }
     else {
         updateCredits(0);
     }
+
+    // symbolValues.forEach((symbol, index) => {
+    //     let reelElement = document.getElementById(`reel${index+1}`)
+    //     if (winningSymbols.includes(symbol)) {
+    //         reelElement.style.flexGrow = '1.5';
+    //         reelElement.style.border = '2px solid pink';
+    //     }
+    //     else {
+    //         reelElement.style.opacity = '0.5';
+    //     }
+    // });
+
 }
 
 //TODO: perhaps create some functions or quick for loops to do functions for each reel. Gets repetitive
