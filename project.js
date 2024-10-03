@@ -220,7 +220,7 @@ function wonCredits() {
         winningSymbols = symbolValues.filter(sym => sym === buggy);
         updateCredits(400);
     }
-    else if (((symbolValues.filter(sym => sym === JS).length === 1) || (symbolValues.filter(sym => sym === python).length === 1)) && (symbolValues.filter(sym => sym === buggy).length === 3)) {
+    else if ((symbolValues.filter(sym => sym === buggy).length === 3) && ((symbolValues.filter(sym => sym === JS).length >= 1) || (symbolValues.filter(sym => sym === python).length >= 1))) {
         winningSymbols = symbolValues.filter(sym => sym === buggy);
         if (symbolValues.includes(JS)) {
             winningSymbols.push(JS);
@@ -236,24 +236,33 @@ function wonCredits() {
     }
     else if ((symbolValues.filter(sym => sym === parentheses).length + symbolValues.filter(sym => sym === semicolon).length + symbolValues.filter(sym => sym === curly_braces).length) >= 4) {//TODO: change this to reflect the any 4 of semicolon, parenthese, curly braces
         winningSymbols = symbolValues.filter(sym => sym === parentheses).concat(symbolValues.filter(sym => sym === semicolon)).concat(symbolValues.filter(sym => sym === curly_braces));
-        console.log(winningSymbols);
         updateCredits(300);
     }
     else {
         updateCredits(0);
     }
 
+    return winningSymbols;
+
+}
+
+function displayWinningSymbols() {
+    // const symbolValues = Object.values(symbolCombo);
+
     // symbolValues.forEach((symbol, index) => {
-    //     let reelElement = document.getElementById(`reel${index+1}`)
+    //     let reelElement = document.getElementById(`reel${index+1}`);//determines which reel symbol is in by the index. Since array element indices start at 0, this adds 1 to it to make it more accurate
+    //     let symbolElement = document.createElement('div'); //create an HTML div for the symbols so we can manipulate.
+    //     symbolElement.classList.add('symbol'); 
+
     //     if (winningSymbols.includes(symbol)) {
-    //         reelElement.style.flexGrow = '1.5';
-    //         reelElement.style.border = '2px solid pink';
+    //         symbolElement.style.flexGrow = '1.5';
+    //         symbolElement.style.border = '2px solid pink';
     //     }
     //     else {
-    //         reelElement.style.opacity = '0.5';
+    //         symbolElement.style.opacity = '0.5';
     //     }
+    //     reelElement.appendChild(symbolElement); //this makes sure the symbolElement div is a child of the reel.
     // });
-
 }
 
 //TODO: perhaps create some functions or quick for loops to do functions for each reel. Gets repetitive
