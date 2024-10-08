@@ -258,16 +258,31 @@ function displayWinningSymbols(winningSymbols) {
     symbolValues.forEach((symbol, index) => {
         let reelElement = document.getElementById(`reel${index + 1}`);
 
+        //creates array of all instances of winning symbol in a reel
         const winningImages = Array.from(reelElement.querySelectorAll(`img[src="${symbol}"]`));
         
+        //code to make sure that the center instance of a win is selected if there are multiple in a reel
         if (winningImages.length > 0) {
-            const middleIndex = Math.floor(winningImages.length / 2);
-            const middleImage = winningImages[middleIndex];
+            //distance from top of viewport to top of reelElement plus half of the height of the reel to get to where the center of the reel is.
+            const middle = reelElement.getBoundingClientRect().top + (reelElement.offsetHeight / 2);
+            let closestImage = winningImages[0];
+
+            //this is how far the closestImage is from the middle. The closestImage will update when a symbol is closer, essentially we end with the center symbol
+            let closestDistance = Math.abs(closestImage.getBoundingClientRect().top - middle);
+
+            //this goes through the instances of the winning symbol in a reel to find out which is closer.
+            winningImages.forEach(image => {
+                const distance = Math.abs(image.getBoundingClientRect().top - middle);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestImage = image;
+                }
+            });
+
             if (winningSymbols.includes(symbol)) {
-                middleImage.style.flexGrow = '1.5';
-                middleImage.style.border = '2px solid pink';
+                closestImage.style.border = '2px solid pink';
             } else {
-                middleImage.style.opacity = '0.5';
+                closestImage.style.opacity = '0.5';
             }
         }
     });   
