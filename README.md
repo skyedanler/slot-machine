@@ -13,7 +13,7 @@
 - ~~Create the point system (pay table) and possibly show a pay line as the next div.~~
 - ~~Create a div with the three to five reels (slots).~~
 - Edit symbols to be all the same size.
-- Create an event where when the spin ends, the images that are within the center row are maybe either lit up or the other images become opaque.
+- ~~Create an event where when the spin ends, the images that are within the center row are maybe either lit up or the other images become opaque.~~
 - Have the reels look like they're actually spinning with some type of transform in CSS.
 
 ***
