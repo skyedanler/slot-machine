@@ -237,18 +237,10 @@ function wonCredits() {
     else if ((symbolValues.filter(sym => sym === parentheses).length + 
            symbolValues.filter(sym => sym === semicolon).length + 
            symbolValues.filter(sym => sym === curly_braces).length) >= 4) {
+        winningSymbols = symbolValues.filter(sym => sym === parentheses).concat(symbolValues.filter(sym => sym === semicolon), symbolValues.filter(sym => sym === curly_braces));
+        updateCredits(300);
     
-    const winningParentheses = symbolValues.filter(sym => sym === parentheses);
-    const winningSemicolon = symbolValues.filter(sym => sym === semicolon);
-    const winningCurlyBraces = symbolValues.filter(sym => sym === curly_braces);
-    
-    winningSymbols = winningParentheses.concat(winningSemicolon, winningCurlyBraces);
-    
-    console.log('Winning Symbols:', winningSymbols);
-    
-    updateCredits(300);
-    //displayWinningSymbols(winningSymbols); //bug: if you put this outside of the if statement, it will even take in if there is no win and the opacity goes down for all.
-}
+    }
     else {
         updateCredits(0);
     }
@@ -257,30 +249,25 @@ function wonCredits() {
     if (winningSymbols.length !== 0) {
         displayWinningSymbols(winningSymbols);
     }
-   
-    console.log(winningSymbols);
-    //displayWinningSymbols();
-    //return winningSymbols;
 
 }
 
 function displayWinningSymbols(winningSymbols) {
     const symbolValues = Object.values(symbolCombo);
-    console.log('Symbol Values:', symbolValues);
-    console.log('Winning Symbols:', winningSymbols);
 
     symbolValues.forEach((symbol, index) => {
         let reelElement = document.getElementById(`reel${index + 1}`);
-        console.log(`Reel Element for Index ${index}:`, reelElement);
 
-        const existingImage = reelElement.querySelectorAll(`img[src="${symbol}"]`);
+        const winningImages = Array.from(reelElement.querySelectorAll(`img[src="${symbol}"]`));
         
-        if (existingImage) {
+        if (winningImages.length > 0) {
+            const middleIndex = Math.floor(winningImages.length / 2);
+            const middleImage = winningImages[middleIndex];
             if (winningSymbols.includes(symbol)) {
-                existingImage.style.flexGrow = '1.5';
-                existingImage.style.border = '2px solid pink';
+                middleImage.style.flexGrow = '1.5';
+                middleImage.style.border = '2px solid pink';
             } else {
-                existingImage.style.opacity = '0.5';
+                middleImage.style.opacity = '0.5';
             }
         }
     });   
