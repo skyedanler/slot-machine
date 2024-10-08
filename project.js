@@ -234,35 +234,56 @@ function wonCredits() {
         document.getElementById('message').innerHTML = 'You won a free spin! Spinning now...';
         startSpin();
     }
-    else if ((symbolValues.filter(sym => sym === parentheses).length + symbolValues.filter(sym => sym === semicolon).length + symbolValues.filter(sym => sym === curly_braces).length) >= 4) {//TODO: change this to reflect the any 4 of semicolon, parenthese, curly braces
-        winningSymbols = symbolValues.filter(sym => sym === parentheses).concat(symbolValues.filter(sym => sym === semicolon)).concat(symbolValues.filter(sym => sym === curly_braces));
-        updateCredits(300);
-    }
+    else if ((symbolValues.filter(sym => sym === parentheses).length + 
+           symbolValues.filter(sym => sym === semicolon).length + 
+           symbolValues.filter(sym => sym === curly_braces).length) >= 4) {
+    
+    const winningParentheses = symbolValues.filter(sym => sym === parentheses);
+    const winningSemicolon = symbolValues.filter(sym => sym === semicolon);
+    const winningCurlyBraces = symbolValues.filter(sym => sym === curly_braces);
+    
+    winningSymbols = winningParentheses.concat(winningSemicolon, winningCurlyBraces);
+    
+    console.log('Winning Symbols:', winningSymbols);
+    
+    updateCredits(300);
+    //displayWinningSymbols(winningSymbols); //bug: if you put this outside of the if statement, it will even take in if there is no win and the opacity goes down for all.
+}
     else {
         updateCredits(0);
     }
 
-    return winningSymbols;
+    //if statement just to display winningSymbols
+    if (winningSymbols.length !== 0) {
+        displayWinningSymbols(winningSymbols);
+    }
+   
+    console.log(winningSymbols);
+    //displayWinningSymbols();
+    //return winningSymbols;
 
 }
 
-function displayWinningSymbols() {
-    // const symbolValues = Object.values(symbolCombo);
+function displayWinningSymbols(winningSymbols) {
+    const symbolValues = Object.values(symbolCombo);
+    console.log('Symbol Values:', symbolValues);
+    console.log('Winning Symbols:', winningSymbols);
 
-    // symbolValues.forEach((symbol, index) => {
-    //     let reelElement = document.getElementById(`reel${index+1}`);//determines which reel symbol is in by the index. Since array element indices start at 0, this adds 1 to it to make it more accurate
-    //     let symbolElement = document.createElement('div'); //create an HTML div for the symbols so we can manipulate.
-    //     symbolElement.classList.add('symbol'); 
+    symbolValues.forEach((symbol, index) => {
+        let reelElement = document.getElementById(`reel${index + 1}`);
+        console.log(`Reel Element for Index ${index}:`, reelElement);
 
-    //     if (winningSymbols.includes(symbol)) {
-    //         symbolElement.style.flexGrow = '1.5';
-    //         symbolElement.style.border = '2px solid pink';
-    //     }
-    //     else {
-    //         symbolElement.style.opacity = '0.5';
-    //     }
-    //     reelElement.appendChild(symbolElement); //this makes sure the symbolElement div is a child of the reel.
-    // });
+        const existingImage = reelElement.querySelectorAll(`img[src="${symbol}"]`);
+        
+        if (existingImage) {
+            if (winningSymbols.includes(symbol)) {
+                existingImage.style.flexGrow = '1.5';
+                existingImage.style.border = '2px solid pink';
+            } else {
+                existingImage.style.opacity = '0.5';
+            }
+        }
+    });   
 }
 
 //TODO: perhaps create some functions or quick for loops to do functions for each reel. Gets repetitive
