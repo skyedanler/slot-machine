@@ -182,47 +182,110 @@ function startSpin() {//this function will start the spinning action for all ree
 //function to updateCredits based on combination win/not win
 function wonCredits() {
     const symbolValues = Object.values(symbolCombo);
+    let winningSymbols = [];
 
     if (symbolValues.filter(sym => sym === JS).length === 5) {
+        winningSymbols = symbolValues.slice();
         updateCredits(2000);
     }
     else if (symbolValues.filter(sym => sym === JS).length === 4) {
+        winningSymbols = symbolValues.filter(sym => sym === JS);
         updateCredits(1500);
     }
     else if (symbolValues.filter(sym => sym === JS).length === 3) {
+        winningSymbols = symbolValues.filter(sym => sym === JS);
         updateCredits(1000);
     }
     else if (symbolValues.filter(sym => sym === python).length === 5) {
+        winningSymbols = symbolValues.slice();
         updateCredits(1500);
     }
     else if (symbolValues.filter(sym => sym === python).length === 4) {
+        winningSymbols = symbolValues.filter(sym => sym === python);
         updateCredits(1200);
     }
     else if (symbolValues.filter(sym => sym === python).length === 3) {
+        winningSymbols = symbolValues.filter(sym => sym === python);
         updateCredits(800);
     }
     else if ((symbolValues.filter(sym => sym === JS).length === 2) && (symbolValues.filter(sym => sym === python).length === 2)) {
+        winningSymbols = symbolValues.filter(sym => sym === JS).concat(symbolValues.filter(sym => sym === python));
         updateCredits(500);
     }
     else if (symbolValues.filter(sym => sym === buggy).length === 5) {
+        winningSymbols = symbolValues.slice();
         updateCredits(600);
     }
     else if (symbolValues.filter(sym => sym === buggy).length === 4) {
+        winningSymbols = symbolValues.filter(sym => sym === buggy);
         updateCredits(400);
     }
-    else if (((symbolValues.filter(sym => sym === JS).length === 1) || (symbolValues.filter(sym => sym === python).length === 1)) && (symbolValues.filter(sym => sym === buggy).length === 3)) {
+    else if ((symbolValues.filter(sym => sym === buggy).length === 3) && ((symbolValues.filter(sym => sym === JS).length >= 1) || (symbolValues.filter(sym => sym === python).length >= 1))) {
+        winningSymbols = symbolValues.filter(sym => sym === buggy);
+        if (symbolValues.includes(JS)) {
+            winningSymbols.push(JS);
+        }
+        else {
+            winningSymbols.push(python);
+        }
         updateCredits(400);
     }
     else if (symbolValues.filter(sym => sym === coffee).length === 5) {
         document.getElementById('message').innerHTML = 'You won a free spin! Spinning now...';
         startSpin();
     }
-    else if ((symbolValues.filter(sym => sym === parentheses).length + symbolValues.filter(sym => sym === semicolon).length + symbolValues.filter(sym => sym === curly_braces).length) >= 4) {//TODO: change this to reflect the any 4 of semicolon, parenthese, curly braces
+    else if ((symbolValues.filter(sym => sym === parentheses).length + 
+           symbolValues.filter(sym => sym === semicolon).length + 
+           symbolValues.filter(sym => sym === curly_braces).length) >= 4) {
+        winningSymbols = symbolValues.filter(sym => sym === parentheses).concat(symbolValues.filter(sym => sym === semicolon), symbolValues.filter(sym => sym === curly_braces));
         updateCredits(300);
+    
     }
     else {
         updateCredits(0);
     }
+
+    //if statement just to display winningSymbols
+    if (winningSymbols.length !== 0) {
+        displayWinningSymbols(winningSymbols);
+    }
+
+}
+
+function displayWinningSymbols(winningSymbols) {
+    const symbolValues = Object.values(symbolCombo);
+
+    symbolValues.forEach((symbol, index) => {
+        let reelElement = document.getElementById(`reel${index + 1}`);
+
+        //creates array of all instances of winning symbol in a reel
+        const winningImages = Array.from(reelElement.querySelectorAll(`img[src="${symbol}"]`));
+        
+        //code to make sure that the center instance of a win is selected if there are multiple in a reel
+        if (winningImages.length > 0) {
+            //distance from top of viewport to top of reelElement plus half of the height of the reel to get to where the center of the reel is.
+            const middle = reelElement.getBoundingClientRect().top + (reelElement.offsetHeight / 2);
+            let closestImage = winningImages[0];
+
+            //this is how far the closestImage is from the middle. The closestImage will update when a symbol is closer, essentially we end with the center symbol
+            let closestDistance = Math.abs(closestImage.getBoundingClientRect().top - middle);
+
+            //this goes through the instances of the winning symbol in a reel to find out which is closer.
+            winningImages.forEach(image => {
+                const distance = Math.abs(image.getBoundingClientRect().top - middle);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestImage = image;
+                }
+            });
+
+            if (winningSymbols.includes(symbol)) {
+                closestImage.style.border = '2px solid pink';
+            } else {
+                closestImage.style.opacity = '0.5';
+            }
+        }
+    });   
 }
 
 //TODO: perhaps create some functions or quick for loops to do functions for each reel. Gets repetitive
