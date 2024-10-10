@@ -39,7 +39,7 @@ body p {
     height: 70px;
     padding: 5px;
     margin: 10px;
-    flex: 2 0.5 auto;
+    object-fit: contain;
 }
 
 .winnings img {
