@@ -147,7 +147,7 @@ function spinReel(reel, reelName) {
 
     displayReel(document.getElementById(reelName), reelArray);
     symbolCombo[reelName] = reelArray[1];
-}
+ }
 
 function startReels() {//starting spinning the reels at their respective interval times
     reel1Spin = setInterval(() => spinReel(reel1, 'reel1'), 100);
@@ -156,6 +156,7 @@ function startReels() {//starting spinning the reels at their respective interva
     reel4Spin = setInterval(() => spinReel(reel4, 'reel4'), 400);
     reel5Spin = setInterval(() => spinReel(reel5, 'reel5'), 500);
 }
+
 
 function stopReels() {//stop all spinning after 3 seconds
     setTimeout(() => { 
